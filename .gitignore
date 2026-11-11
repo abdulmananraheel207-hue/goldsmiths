@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.env
+server/uploads/*
+!server/uploads/.gitkeep
+server/backups/
+*.log
+coverage/
+
+# Reference screenshots (not part of the app)
+client/public/Screenshot*.png

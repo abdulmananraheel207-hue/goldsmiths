@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-size: 16px;
+  }
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+    font-size: 15px;
+    line-height: 1.55;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+  h1 {
+    @apply font-display text-[1.65rem] font-semibold leading-tight tracking-tight text-ink;
+  }
+  h2 {
+    @apply text-[1.05rem] font-semibold leading-snug text-ink;
+  }
+  h3 {
+    @apply text-[0.95rem] font-semibold text-ink;
+  }
+  :focus-visible {
+    outline: 2px solid #b08b4f;
+    outline-offset: 2px;
+  }
+  /* No tiny number spinners */
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type='number'] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+}
+
+@layer components {
+  .field-input {
+    @apply block w-full min-h-[40px] rounded-lg border border-line bg-white px-3 py-1.5 text-[15px] text-ink
+      placeholder:text-ink-faint transition-colors duration-150
+      hover:border-ink-faint/60
+      focus:border-gold-500 focus:outline-none focus:ring-[3px] focus:ring-gold-100
+      disabled:bg-paper disabled:text-ink-soft read-only:bg-paper;
+  }
+  .field-input.has-error {
+    @apply border-danger-600 focus:border-danger-600 focus:ring-danger-100;
+  }
+  .card {
+    @apply rounded-xl border border-line bg-card shadow-soft;
+  }
+  .num {
+    font-variant-numeric: tabular-nums;
+  }
+  .eyebrow {
+    @apply text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-faint;
+  }
+}
+
+/* Gentle page fade */
+.page-enter {
+  animation: pageIn 180ms ease-out;
+}
+@keyframes pageIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-enter {
+    animation: none;
+  }
+}
+
+/* ---------- Printing ---------- */
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+  body {
+    background: #fff !important;
+    font-size: 12pt;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-area {
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: none !important;
+  }
+  main {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+}
+
+/* 80mm thermal receipt mode: <body class="print-thermal"> */
+@media print {
+  body.print-thermal {
+    font-size: 9pt;
+  }
+  body.print-thermal .print-area {
+    width: 72mm !important;
+  }
+  body.print-thermal .a4-only {
+    display: none !important;
+  }
+}
+body.print-thermal .thermal-only {
+  display: block;
+}
+.thermal-only {
+  display: none;
+}
+@media print {
+  body.print-thermal {
+    margin: 0;
+  }
+}
